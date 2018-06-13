@@ -1,3 +1,7 @@
+USE [LogosDB]
+GO
+
+
 SELECT X.[xGroupCode] + ' - ' + X.[xGroupCodeDesc] AS BenefitGroup
 	, right('0000' + X.[xGroupCode], 6) AS BenefitGroupSort
 	, CASE 
@@ -53,9 +57,9 @@ SELECT X.[xGroupCode] + ' - ' + X.[xGroupCodeDesc] AS BenefitGroup
 	, XBS.[xGroupBudgetPositionDefaultScheduleID]
 	, XBS.[xGroupHeaderID]
 	, XBS.[HourHeaderID]
-FROM [LogosDB].[dbo].[xGroupBudgetPositionDefaultSchedule] XBS
-JOIN [LogosDB].[dbo].[HourHeader] HH ON XBS.[HourHeaderID] = HH.[HourHeaderID]
-JOIN [LogosDB].[dbo].[xGroupHeader] x ON XBS.[xGroupHeaderID] = X.[xGroupHeaderID]
+FROM [dbo].[xGroupBudgetPositionDefaultSchedule] XBS
+JOIN [dbo].[HourHeader] HH ON XBS.[HourHeaderID] = HH.[HourHeaderID]
+JOIN [dbo].[xGroupHeader] x ON XBS.[xGroupHeaderID] = X.[xGroupHeaderID]
 LEFT OUTER JOIN [dbo].[Frequency] F ON XBS.[FrequencyID] = F.[FrequencyID]
-LEFT OUTER JOIN [LogosDB].[dbo].[xGroupScheduleDay] d ON XBS.[DayID] = D.xGroupScheduleDayID
+LEFT OUTER JOIN [dbo].[xGroupScheduleDay] d ON XBS.[DayID] = D.xGroupScheduleDayID
 ORDER BY right('00000' + X.[xGroupCode], 6)
